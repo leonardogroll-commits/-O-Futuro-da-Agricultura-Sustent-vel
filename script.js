@@ -1,175 +1,353 @@
+/* =========================================================
+   AGROVIVA • SCRIPT PRINCIPAL
+   Interações modernas + animações suaves
+========================================================= */
+
 document.addEventListener('DOMContentLoaded', () => {
 
-    /* ==========================================================================
-       1. MENU MOBILE RESPONSIVO
-       ========================================================================== */
-    const btnMobile = document.querySelector('.btn-mobile');
+    /* =====================================================
+       1. MENU MOBILE
+    ===================================================== */
+
+    const mobileBtn = document.querySelector('.btn-mobile');
     const navMenu = document.querySelector('.nav-menu');
     const navLinks = document.querySelectorAll('.nav-link');
-    const menuIcon = btnMobile.querySelector('i');
+    const navbar = document.querySelector('.navbar');
 
-    function toggleMenu() {
-        navMenu.classList.toggle('active');
-        const isActive = navMenu.classList.contains('active');
-        
-        // Altera dinamicamente o ícone entre menu e fechar (X)
-        if (isActive) {
-            menuIcon.setAttribute('data-lucide', 'x');
-        } else {
-            menuIcon.setAttribute('data-lucide', 'menu');
-        }
-        lucide.createIcons(); // Recarrega os ícones alterados
+    if (mobileBtn) {
+
+        mobileBtn.addEventListener('click', () => {
+
+            navMenu.classList.toggle('active');
+
+            document.body.classList.toggle('menu-open');
+
+            const icon = mobileBtn.querySelector('i');
+
+            if (navMenu.classList.contains('active')) {
+                icon.setAttribute('data-lucide', 'x');
+            } else {
+                icon.setAttribute('data-lucide', 'menu');
+            }
+
+            lucide.createIcons();
+        });
     }
 
-    btnMobile.addEventListener('click', toggleMenu);
+    /* FECHAR MENU AO CLICAR */
 
-    // Fecha o menu ao clicar em qualquer item de link
     navLinks.forEach(link => {
+
         link.addEventListener('click', () => {
-            if (navMenu.classList.contains('active')) toggleMenu();
+
+            navMenu.classList.remove('active');
+
+            document.body.classList.remove('menu-open');
+
+            const icon = mobileBtn.querySelector('i');
+
+            icon.setAttribute('data-lucide', 'menu');
+
+            lucide.createIcons();
         });
     });
 
-
-    /* ==========================================================================
-       2. ANIMAÇÃO DE APARECER ELEMENTOS AO ROLAR (Scroll Reveal)
-       ========================================================================== */
-    const observerOptions = {
-        root: null,
-        threshold: 0.15 // Dispara quando 15% do elemento está visível
-    };
-
-    const scrollObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('show-element');
-                
-                // Se for o contêiner de estatísticas, inicia o contador
-                if (entry.target.classList.contains('stat-item')) {
-                    animateCounter(entry.target.querySelector('.stat-number'));
-                }
-                observer.unobserve(entry.target); // Deixa de observar após animar
-            }
-        });
-    }, observerOptions);
-
-    // Seleciona todos os elementos que devem possuir animação de entrada
-    const elementsToAnimate = document.querySelectorAll('.hidden-element');
-    elementsToAnimate.forEach(el => scrollObserver.observe(el));
-
-
-    /* ==========================================================================
-       3. CONTADOR NUMÉRICO ANIMADO
-       ========================================================================== */
-    function animateCounter(counterElement) {
-        const target = +counterElement.getAttribute('data-target');
-        const duration = 2000; // Tempo total da animação em milissegundos
-        const stepTime = Math.max(Math.floor(duration / target), 15);
-        let current = 0;
-
-        // Ajusta o passo para números maiores (ex: 1200) para manter os 2 segundos
-        const increment = target > 100 ? Math.ceil(target / (duration / stepTime)) : 1;
-
-        const timer = setInterval(() => {
-            current += increment;
-            if (current >= target) {
-                counterElement.textContent = target;
-                clearInterval(timer);
-            } else {
-                counterElement.textContent = current;
-            }
-        }, stepTime);
-    }
-
-
-    /* ==========================================================================
-       4. BOTÃO VOLTAR AO TOPO & LINK ATIVO NO MENU
-       ========================================================================== */
-    const backToTopBtn = document.getElementById('backToTop');
-    const sections = document.querySelectorAll('section');
+    /* =====================================================
+       2. NAVBAR SCROLL
+    ===================================================== */
 
     window.addEventListener('scroll', () => {
-        // Gerenciar o botão voltar ao topo
-        if (window.scrollY > 400) {
-            backToTopBtn.classList.add('show');
-        } else {
-            backToTopBtn.classList.remove('show');
-        }
 
-        // Gerenciar link ativo no menu correspondente à seção visível
-        let currentSectionId = '';
+        if (window.scrollY > 80) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+
+    /* =====================================================
+       3. ANIMAÇÃO AO ROLAR
+    ===================================================== */
+
+    const revealElements =
+        document.querySelectorAll('.fade-up');
+
+    const revealObserver =
+        new IntersectionObserver((entries) => {
+
+            entries.forEach(entry => {
+
+                if (entry.isIntersecting) {
+
+                    entry.target.classList.add('show');
+
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+
+        }, {
+            threshold: 0.15
+        });
+
+    revealElements.forEach(element => {
+        revealObserver.observe(element);
+    });
+
+    /* =====================================================
+       4. CONTADORES ANIMADOS
+    ===================================================== */
+
+    const counters =
+        document.querySelectorAll('.stat-number');
+
+    let counterStarted = false;
+
+    function animateCounters() {
+
+        counters.forEach(counter => {
+
+            const target =
+                +counter.dataset.target;
+
+            let current = 0;
+
+            const increment =
+                Math.ceil(target / 100);
+
+            const timer = setInterval(() => {
+
+                current += increment;
+
+                if (current >= target) {
+
+                    counter.innerText = target;
+
+                    clearInterval(timer);
+
+                } else {
+
+                    counter.innerText = current;
+                }
+
+            }, 20);
+        });
+    }
+
+    const statsSection =
+        document.querySelector('.stats');
+
+    if (statsSection) {
+
+        const statsObserver =
+            new IntersectionObserver((entries) => {
+
+                entries.forEach(entry => {
+
+                    if (
+                        entry.isIntersecting &&
+                        !counterStarted
+                    ) {
+
+                        animateCounters();
+
+                        counterStarted = true;
+                    }
+                });
+
+            }, {
+                threshold: 0.4
+            });
+
+        statsObserver.observe(statsSection);
+    }
+
+    /* =====================================================
+       5. BOTÃO VOLTAR AO TOPO
+    ===================================================== */
+
+    const backTop =
+        document.querySelector('.back-top');
+
+    window.addEventListener('scroll', () => {
+
+        if (window.scrollY > 500) {
+
+            backTop.style.opacity = '1';
+            backTop.style.visibility = 'visible';
+            backTop.style.transform = 'translateY(0)';
+
+        } else {
+
+            backTop.style.opacity = '0';
+            backTop.style.visibility = 'hidden';
+            backTop.style.transform =
+                'translateY(20px)';
+        }
+    });
+
+    if (backTop) {
+
+        backTop.addEventListener('click', () => {
+
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+
+    /* =====================================================
+       6. LINK ATIVO NO MENU
+    ===================================================== */
+
+    const sections =
+        document.querySelectorAll('section');
+
+    window.addEventListener('scroll', () => {
+
+        let current = '';
+
         sections.forEach(section => {
-            const sectionTop = section.offsetTop - 100; // Ajuste por causa do menu fixo
+
+            const sectionTop =
+                section.offsetTop - 120;
+
             if (window.scrollY >= sectionTop) {
-                currentSectionId = section.getAttribute('id');
+
+                current =
+                    section.getAttribute('id');
             }
         });
 
         navLinks.forEach(link => {
+
             link.classList.remove('active');
-            if (link.getAttribute('href') === `#${currentSectionId}`) {
+
+            if (
+                link.getAttribute('href')
+                === `#${current}`
+            ) {
+
                 link.classList.add('active');
             }
         });
     });
 
-    backToTopBtn.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    /* =====================================================
+       7. FORMULÁRIO
+    ===================================================== */
 
+    const form =
+        document.getElementById('contactForm');
 
-    /* ==========================================================================
-       5. VALIDAÇÃO SIMPLES DO FORMULÁRIO DE CONTATO
-       ========================================================================== */
-    const contactForm = document.getElementById('contactForm');
-    const successMsg = document.getElementById('formSuccess');
+    const successMessage =
+        document.getElementById('formSuccess');
 
-    contactForm.addEventListener('submit', (e) => {
-        e.preventDefault(); // Impede o recarregamento padrão da página
-        let isFormValid = true;
+    if (form) {
 
-        // Campos do formulário
-        const inputs = contactForm.querySelectorAll('input[required], textarea[required]');
+        form.addEventListener('submit', (e) => {
 
-        inputs.forEach(input => {
-            const formGroup = input.parentElement;
-            
-            // Validação simples de preenchimento
-            if (!input.value.trim()) {
-                formGroup.classList.add('error');
-                isFormValid = false;
-            } else if (input.type === 'email' && !validateEmail(input.value)) {
-                formGroup.classList.add('error');
-                isFormValid = false;
-            } else {
-                formGroup.classList.remove('error');
+            e.preventDefault();
+
+            let valid = true;
+
+            const fields =
+                form.querySelectorAll(
+                    'input[required], textarea[required]'
+                );
+
+            fields.forEach(field => {
+
+                const parent =
+                    field.parentElement;
+
+                parent.classList.remove('error');
+
+                if (!field.value.trim()) {
+
+                    parent.classList.add('error');
+
+                    valid = false;
+                }
+
+                if (
+                    field.type === 'email' &&
+                    !validateEmail(field.value)
+                ) {
+
+                    parent.classList.add('error');
+
+                    valid = false;
+                }
+            });
+
+            if (valid) {
+
+                successMessage.style.display =
+                    'block';
+
+                form.reset();
+
+                setTimeout(() => {
+
+                    successMessage.style.display =
+                        'none';
+
+                }, 5000);
             }
         });
 
-        // Caso tudo esteja preenchido corretamente
-        if (isFormValid) {
-            successMsg.style.display = 'block';
-            contactForm.reset(); // Limpa os campos
+        /* REMOVER ERRO AO DIGITAR */
 
-            // Remove a mensagem de sucesso após 5 segundos
-            setTimeout(() => {
-                successMsg.style.display = 'none';
-            }, 5000);
+        form.querySelectorAll(
+            'input, textarea'
+        ).forEach(field => {
+
+            field.addEventListener('input', () => {
+
+                if (field.value.trim()) {
+
+                    field.parentElement
+                        .classList.remove('error');
+                }
+            });
+        });
+    }
+
+    /* =====================================================
+       8. VALIDAÇÃO EMAIL
+    ===================================================== */
+
+    function validateEmail(email) {
+
+        const regex =
+            /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        return regex.test(email);
+    }
+
+    /* =====================================================
+       9. PARALLAX SUAVE HERO
+    ===================================================== */
+
+    const hero =
+        document.querySelector('.hero');
+
+    window.addEventListener('scroll', () => {
+
+        const scrollY = window.scrollY;
+
+        if (hero) {
+
+            hero.style.backgroundPositionY =
+                `${scrollY * 0.4}px`;
         }
     });
 
-    // Remove a classe de erro enquanto o usuário digita
-    contactForm.querySelectorAll('input, textarea').forEach(input => {
-        input.addEventListener('input', () => {
-            if (input.value.trim()) {
-                input.parentElement.classList.remove('error');
-            }
-        });
-    });
+    /* =====================================================
+       10. INICIAR ÍCONES LUCIDE
+    ===================================================== */
 
-    // Função auxiliar para validar padrão de e-mail
-    function validateEmail(email) {
-        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return regex.test(email);
-    }
+    lucide.createIcons();
+
 });
