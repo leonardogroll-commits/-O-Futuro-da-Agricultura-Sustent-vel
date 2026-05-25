@@ -1,8 +1,8 @@
 /* --- 1. VARIÁVEIS E CONFIGURAÇÕES GERAIS --- */
 :root {
-    --primary-color: #2e7d32;     /* Verde Principal */
-    --primary-light: #4caf50;     /* Verde Claro */
-    --secondary-color: #fbc02d;   /* Amarelo Ouro */
+    --primary-color: #2e7d32;
+    --primary-light: #4caf50;
+    --secondary-color: #fbc02d;
     --text-color: #333333;
     --light-bg: #f9fbf9;
     --white: #ffffff;
@@ -20,6 +20,10 @@ html {
     scroll-behavior: smooth;
     font-family: 'Open Sans', sans-serif;
     color: var(--text-color);
+}
+
+body {
+    overflow-x: hidden;
 }
 
 h1, h2, h3, .logo {
@@ -44,6 +48,15 @@ img {
     border-radius: 8px;
 }
 
+/* PERFORMANCE */
+.hidden-element,
+.card,
+.gallery-item img,
+.btn,
+.back-to-top {
+    will-change: transform, opacity;
+}
+
 /* --- 2. COMPONENTES REUTILIZÁVEIS --- */
 .btn {
     display: inline-block;
@@ -54,6 +67,24 @@ img {
     transition: var(--transition-smooth);
     border: none;
     cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0.2);
+    transform: skewX(-25deg);
+    transition: 0.5s;
+}
+
+.btn:hover::after {
+    left: 120%;
 }
 
 .btn-primary {
@@ -105,6 +136,12 @@ img {
     transition: var(--transition-smooth);
 }
 
+.navbar.scrolled {
+    padding: 5px 0;
+    backdrop-filter: blur(10px);
+    background-color: rgba(255,255,255,0.9);
+}
+
 .nav-container {
     display: flex;
     justify-content: space-between;
@@ -136,7 +173,8 @@ img {
     padding: 5px 0;
 }
 
-.nav-link:hover, .nav-link.active {
+.nav-link:hover,
+.nav-link.active {
     color: var(--primary-color);
 }
 
@@ -151,7 +189,8 @@ img {
     transition: var(--transition-smooth);
 }
 
-.nav-link:hover::after, .nav-link.active::after {
+.nav-link:hover::after,
+.nav-link.active::after {
     width: 100%;
 }
 
@@ -163,9 +202,9 @@ img {
     cursor: pointer;
 }
 
-/* --- 4. BANNER PRINCIPAL (HERO) --- */
+/* --- 4. HERO --- */
 .hero-section {
-    height: 100vh;
+    min-height: 100svh;
     background-image: url('https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&q=80&w=1920');
     background-size: cover;
     background-position: center;
@@ -177,10 +216,7 @@ img {
 
 .hero-overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     background: linear-gradient(to right, rgba(0,0,0,0.7), rgba(0,0,0,0.3));
 }
 
@@ -207,7 +243,7 @@ img {
     opacity: 0.9;
 }
 
-/* --- 5. SEÇÃO SOBRE --- */
+/* --- 5. SOBRE --- */
 .about-section {
     background-color: var(--white);
 }
@@ -250,7 +286,7 @@ img {
     transform: scale(1.02);
 }
 
-/* --- 6. CARDS DE TECNOLOGIA --- */
+/* --- 6. CARDS --- */
 .cards-section {
     background-color: var(--light-bg);
 }
@@ -262,12 +298,33 @@ img {
 }
 
 .card {
+    position: relative;
+    overflow: hidden;
     background-color: var(--white);
     padding: 40px 30px;
     border-radius: 12px;
     box-shadow: 0 5px 20px rgba(0,0,0,0.02);
     transition: var(--transition-smooth);
     border-bottom: 4px solid transparent;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(
+        90deg,
+        var(--primary-color),
+        var(--secondary-color)
+    );
+    transition: 0.5s;
+}
+
+.card:hover::before {
+    left: 0;
 }
 
 .card:hover {
@@ -334,7 +391,11 @@ img {
 
 /* --- 8. ESTATÍSTICAS --- */
 .stats-section {
-    background: linear-gradient(135deg, var(--primary-color), #1b5e20);
+    background: linear-gradient(
+        135deg,
+        var(--primary-color),
+        #1b5e20
+    );
     color: var(--white);
     text-align: center;
 }
@@ -358,7 +419,7 @@ img {
     opacity: 0.9;
 }
 
-/* --- 9. FORMULÁRIO DE CONTATO --- */
+/* --- 9. CONTATO --- */
 .contact-section {
     background-color: var(--light-bg);
 }
@@ -414,7 +475,8 @@ img {
     font-size: 0.9rem;
 }
 
-.form-group input, .form-group textarea {
+.form-group input,
+.form-group textarea {
     width: 100%;
     padding: 12px 15px;
     border: 1px solid #ddd;
@@ -424,15 +486,17 @@ img {
     background-color: #fafafa;
 }
 
-.form-group input:focus, .form-group textarea:focus {
+.form-group input:focus,
+.form-group textarea:focus {
     border-color: var(--primary-color);
     outline: none;
     background-color: var(--white);
     box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
 }
 
-/* Validação Visual */
-.form-group.error input, .form-group error textarea {
+/* CORREÇÃO DO ERRO */
+.form-group.error input,
+.form-group.error textarea {
     border-color: #e53935;
 }
 
@@ -458,7 +522,7 @@ img {
     font-weight: 600;
 }
 
-/* --- 10. RODAPÉ --- */
+/* --- 10. FOOTER --- */
 .footer {
     background-color: #1a1a1a;
     color: #aeaeae;
@@ -492,11 +556,11 @@ img {
     color: var(--secondary-color);
 }
 
-/* --- 11. VOLTAR AO TOPO & ANIMAÇÃO DE ENTRADA --- */
+/* --- 11. BACK TO TOP --- */
 .back-to-top {
     position: fixed;
     bottom: 30px;
-    right: -60px; /* Escondido inicialmente */
+    right: -60px;
     background-color: var(--primary-color);
     color: var(--white);
     border: none;
@@ -521,11 +585,13 @@ img {
     transform: scale(1.1);
 }
 
-/* Classes para Efeito de Rolagem Suave (Intersection Observer) */
+/* ANIMAÇÃO */
 .hidden-element {
     opacity: 0;
     transform: translateY(40px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
+    transition:
+        opacity 0.8s ease,
+        transform 0.8s ease;
 }
 
 .show-element {
@@ -533,8 +599,13 @@ img {
     transform: translateY(0);
 }
 
-/* --- 12. RESPONSIVIDADE (MOBILE) --- */
+/* --- 12. RESPONSIVIDADE --- */
 @media (max-width: 768px) {
+
+    body.menu-open {
+        overflow: hidden;
+    }
+
     .btn-mobile {
         display: block;
         z-index: 1001;
@@ -562,16 +633,36 @@ img {
         font-size: 2.2rem;
     }
 
-    .about-grid, .contact-container {
+    .about-grid,
+    .contact-container {
         grid-template-columns: 1fr;
         gap: 40px;
     }
 
     .about-image {
-        order: -1; /* Imagem fica no topo no mobile */
+        order: -1;
     }
 
     .stats-grid {
         flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .hero-content h1 {
+        font-size: 1.8rem;
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+    }
+
+    .padding-section {
+        padding: 60px 0;
+    }
+
+    .section-title h2 {
+        font-size: 1.8rem;
     }
 }
