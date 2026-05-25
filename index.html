@@ -1,208 +1,608 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AgroViva - Agricultura Sustentável</title>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-    <!-- Lucide Icons (Para ícones modernos) -->
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>AgroViva • Agricultura Inteligente</title>
+
+    <!-- GOOGLE FONTS -->
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- LUCIDE ICONS -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- CSS Externo -->
+
+    <!-- CSS -->
     <link rel="stylesheet" href="style.css">
+
 </head>
+
 <body>
 
-    <!-- 1. Cabeçalho e Menu -->
+    <!-- =====================================
+         NAVBAR
+    ====================================== -->
+
     <header class="navbar">
-        <div class="container nav-container">
-            <a href="#" class="logo">Agro<span>Viva</span></a>
-            
+
+        <div class="container nav-content">
+
+            <a href="#" class="logo">
+                Agro<span>Viva</span>
+            </a>
+
             <nav class="nav-menu">
-                <a href="#home" class="nav-link active">Início</a>
-                <a href="#sobre" class="nav-link">Sobre</a>
-                <a href="#tecnologias" class="nav-link">Tecnologias</a>
-                <a href="#galeria" class="nav-link">Galeria</a>
-                <a href="#contato" class="nav-link">Contato</a>
+
+                <a href="#home" class="nav-link active">
+                    Início
+                </a>
+
+                <a href="#sobre" class="nav-link">
+                    Sobre
+                </a>
+
+                <a href="#tecnologias" class="nav-link">
+                    Tecnologias
+                </a>
+
+                <a href="#galeria" class="nav-link">
+                    Galeria
+                </a>
+
+                <a href="#contato" class="nav-link">
+                    Contato
+                </a>
+
             </nav>
 
-            <button class="btn-mobile" aria-label="Abrir Menu">
+            <button
+                class="btn-mobile"
+                aria-label="Abrir Menu"
+            >
+
                 <i data-lucide="menu"></i>
+
             </button>
+
         </div>
+
     </header>
 
-    <!-- 2. Banner Principal -->
-    <section id="home" class="hero-section">
-        <div class="hero-overlay"></div>
-        <div class="container hero-content hidden-element">
-            <h1>O Futuro da Agricultura é <span class="highlight">Sustentável</span></h1>
-            <p>Unindo tecnologia avançada e respeito à natureza para cultivar um amanhã mais produtivo e consciente.</p>
-            <a href="#sobre" class="btn btn-primary">Saiba Mais</a>
+    <!-- =====================================
+         HERO
+    ====================================== -->
+
+    <section id="home" class="hero">
+
+        <div class="container">
+
+            <div class="hero-content fade-up">
+
+                <div class="hero-badge">
+                    🌱 Agricultura Inteligente & Sustentável
+                </div>
+
+                <h1>
+
+                    O futuro do agro é
+                    <span>tecnológico</span>
+                    e sustentável
+
+                </h1>
+
+                <p>
+
+                    Conectamos inovação, produtividade
+                    e preservação ambiental para transformar
+                    o agronegócio em um ecossistema moderno,
+                    eficiente e sustentável.
+
+                </p>
+
+                <div class="buttons">
+
+                    <a
+                        href="#sobre"
+                        class="btn btn-primary"
+                    >
+                        Saiba Mais
+                    </a>
+
+                    <a
+                        href="#contato"
+                        class="btn btn-outline"
+                    >
+                        Fale Conosco
+                    </a>
+
+                </div>
+
+            </div>
+
         </div>
+
     </section>
 
-    <!-- 3. Seção Sobre a Agricultura -->
-    <section id="sobre" class="about-section padding-section">
+    <!-- =====================================
+         SOBRE
+    ====================================== -->
+
+    <section id="sobre" class="about">
+
         <div class="container about-grid">
-            <div class="about-text hidden-element">
-                <span class="subtitle">Quem Somos</span>
-                <h2>Inovação Verde no Campo</h2>
-                <p>A agricultura moderna exige um equilíbrio delicado entre alta produtividade e preservação ambiental. Nosso foco é implementar e disseminar práticas que otimizam o uso de recursos naturais, reduzem o impacto ecológico e garantem alimentos saudáveis para as próximas gerações.</p>
-                <p>Através do manejo inteligente e do respeito ao solo, transformamos o ecossistema agrícola em um modelo de negócio viável, tecnológico e duradouro.</p>
+
+            <div class="about-text fade-up">
+
+                <span class="section-tag">
+                    QUEM SOMOS
+                </span>
+
+                <h2>
+
+                    Inovação verde para
+                    transformar o campo
+
+                </h2>
+
+                <p>
+
+                    A AgroViva desenvolve soluções
+                    inteligentes para produtores que
+                    buscam alta produtividade com
+                    responsabilidade ambiental.
+
+                </p>
+
+                <p>
+
+                    Utilizamos tecnologias avançadas,
+                    sensores inteligentes, drones,
+                    monitoramento climático e irrigação
+                    automatizada para otimizar cada etapa
+                    da produção agrícola.
+
+                </p>
+
             </div>
-            <div class="about-image hidden-element">
-                <img src="https://images.unsplash.com/photo-1530595467537-0b5996c41f2d?auto=format&fit=crop&q=80&w=800" alt="Plantação jovem crescendo com tecnologia">
+
+            <div class="about-image fade-up">
+
+                <img
+                    src="https://images.unsplash.com/photo-1530595467537-0b5996c41f2d?auto=format&fit=crop&q=80&w=900"
+                    alt="Agricultura moderna"
+                >
+
             </div>
+
         </div>
+
     </section>
 
-    <!-- 4. Cards de Tecnologias -->
-    <section id="tecnologias" class="cards-section padding-section">
+    <!-- =====================================
+         TECNOLOGIAS
+    ====================================== -->
+
+    <section
+        id="tecnologias"
+        class="tech-section"
+    >
+
         <div class="container">
-            <div class="section-title hidden-element">
-                <h2>Nossos Pilares Tecnológicos</h2>
-                <p>Soluções inteligentes que impulsionam a produtividade de forma consciente.</p>
+
+            <div class="section-header fade-up">
+
+                <h2>
+                    Tecnologia Aplicada ao Agro
+                </h2>
+
+                <p>
+
+                    Soluções modernas que aumentam
+                    produtividade, reduzem desperdícios
+                    e preservam recursos naturais.
+
+                </p>
+
             </div>
-            
-            <div class="cards-grid">
-                <!-- Card 1 -->
-                <div class="card hidden-element">
-                    <div class="card-icon"><i data-lucide="sprout"></i></div>
+
+            <div class="tech-grid">
+
+                <!-- CARD -->
+
+                <div class="tech-card fade-up">
+
+                    <div class="tech-icon">
+                        <i data-lucide="sprout"></i>
+                    </div>
+
                     <h3>Plantio Inteligente</h3>
-                    <p>Uso de dados climáticos e análise de solo para determinar o momento e o local perfeito para cada semente.</p>
+
+                    <p>
+
+                        Análise de solo e clima para
+                        definir o melhor momento
+                        do plantio.
+
+                    </p>
+
                 </div>
-                <!-- Card 2 -->
-                <div class="card hidden-element">
-                    <div class="card-icon"><i data-lucide="droplet"></i></div>
-                    <h3>Irrigação Eficiente</h3>
-                    <p>Sistemas de gotejamento automatizados que reduzem o desperdício de água em até 60% direto na raiz.</p>
+
+                <!-- CARD -->
+
+                <div class="tech-card fade-up">
+
+                    <div class="tech-icon">
+                        <i data-lucide="droplets"></i>
+                    </div>
+
+                    <h3>Irrigação Automatizada</h3>
+
+                    <p>
+
+                        Sistemas inteligentes que
+                        economizam água e aumentam
+                        eficiência hídrica.
+
+                    </p>
+
                 </div>
-                <!-- Card 3 -->
-                <div class="card hidden-element">
-                    <div class="card-icon"><i data-lucide="leaf"></i></div>
+
+                <!-- CARD -->
+
+                <div class="tech-card fade-up">
+
+                    <div class="tech-icon">
+                        <i data-lucide="leaf"></i>
+                    </div>
+
                     <h3>Sustentabilidade</h3>
-                    <p>Práticas de rotação de culturas e adubação orgânica para manter a vitalidade do ecossistema.</p>
+
+                    <p>
+
+                        Produção agrícola sustentável
+                        com menor impacto ambiental.
+
+                    </p>
+
                 </div>
-                <!-- Card 4 -->
-                <div class="card hidden-element">
-                    <div class="card-icon"><i data-lucide="cpu"></i></div>
-                    <h3>Tecnologia no Campo</h3>
-                    <p>Drones e sensores IoT monitorando a saúde da lavoura em tempo real contra pragas e secas.</p>
+
+                <!-- CARD -->
+
+                <div class="tech-card fade-up">
+
+                    <div class="tech-icon">
+                        <i data-lucide="cpu"></i>
+                    </div>
+
+                    <h3>Monitoramento Digital</h3>
+
+                    <p>
+
+                        Sensores e drones monitorando
+                        a lavoura em tempo real.
+
+                    </p>
+
                 </div>
+
             </div>
+
         </div>
+
     </section>
 
-    <!-- 5. Galeria de Imagens -->
-    <section id="galeria" class="gallery-section padding-section">
+    <!-- =====================================
+         GALERIA
+    ====================================== -->
+
+    <section id="galeria" class="gallery">
+
         <div class="container">
-            <div class="section-title hidden-element">
-                <h2>O Campo em Foco</h2>
-                <p>Conheça de perto o dia a dia da nossa produção sustentável.</p>
+
+            <div class="section-header fade-up">
+
+                <h2>Nosso Campo</h2>
+
+                <p>
+
+                    Conheça imagens reais da agricultura
+                    inteligente aplicada na prática.
+
+                </p>
+
             </div>
+
             <div class="gallery-grid">
-                <div class="gallery-item hidden-element">
-                    <img src="https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?auto=format&fit=crop&q=80&w=600" alt="Plantação verdejante">
+
+                <div class="gallery-item fade-up">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?auto=format&fit=crop&q=80&w=700"
+                        alt=""
+                    >
+
                 </div>
-                <div class="gallery-item hidden-element">
-                    <img src="https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&q=80&w=600" alt="Trator moderno operando no campo">
+
+                <div class="gallery-item fade-up">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&q=80&w=700"
+                        alt=""
+                    >
+
                 </div>
-                <div class="gallery-item hidden-element">
-                    <img src="https://images.unsplash.com/photo-1595855759920-86582396756a?auto=format&fit=crop&q=80&w=600" alt="Colheita automatizada">
+
+                <div class="gallery-item fade-up">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1595855759920-86582396756a?auto=format&fit=crop&q=80&w=700"
+                        alt=""
+                    >
+
                 </div>
-                <div class="gallery-item hidden-element">
-                    <img src="https://images.unsplash.com/photo-1627920769842-6887c6df05ca?auto=format&fit=crop&q=80&w=600" alt="Estufa tecnológica">
+
+                <div class="gallery-item fade-up">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1627920769842-6887c6df05ca?auto=format&fit=crop&q=80&w=700"
+                        alt=""
+                    >
+
                 </div>
+
             </div>
+
         </div>
+
     </section>
 
-    <!-- 6. Estatísticas Animadas -->
-    <section class="stats-section padding-section">
+    <!-- =====================================
+         ESTATÍSTICAS
+    ====================================== -->
+
+    <section class="stats">
+
         <div class="container stats-grid">
-            <div class="stat-item hidden-element">
-                <div class="stat-number" data-target="45">0</div>
-                <div class="stat-label">Redução no Uso de Água (%)</div>
+
+            <div class="stat-item fade-up">
+
+                <div
+                    class="stat-number"
+                    data-target="45"
+                >
+                    0
+                </div>
+
+                <div class="stat-text">
+                    Economia de Água (%)
+                </div>
+
             </div>
-            <div class="stat-item hidden-element">
-                <div class="stat-number" data-target="1200">0</div>
-                <div class="stat-label">Hectares Monitorados</div>
+
+            <div class="stat-item fade-up">
+
+                <div
+                    class="stat-number"
+                    data-target="1200"
+                >
+                    0
+                </div>
+
+                <div class="stat-text">
+                    Hectares Monitorados
+                </div>
+
             </div>
-            <div class="stat-item hidden-element">
-                <div class="stat-number" data-target="98">0</div>
-                <div class="stat-label">Satisfação dos Produtores (%)</div>
+
+            <div class="stat-item fade-up">
+
+                <div
+                    class="stat-number"
+                    data-target="98"
+                >
+                    0
+                </div>
+
+                <div class="stat-text">
+                    Satisfação dos Clientes
+                </div>
+
             </div>
+
         </div>
+
     </section>
 
-    <!-- 7. Formulário de Contato -->
-    <section id="contato" class="contact-section padding-section">
-        <div class="container contact-container">
-            <div class="contact-info hidden-element">
-                <h2>Fale com um Especialista</h2>
-                <p>Tem dúvidas sobre como implementar tecnologias sustentáveis na sua propriedade? Nossa equipe de engenheiros agrônomos está pronta para ajudar.</p>
-                <div class="info-item">
+    <!-- =====================================
+         CONTATO
+    ====================================== -->
+
+    <section id="contato">
+
+        <div class="container contact-wrapper">
+
+            <div class="contact-info fade-up">
+
+                <h2>
+
+                    Fale com nossos especialistas
+
+                </h2>
+
+                <p>
+
+                    Descubra como a tecnologia pode
+                    transformar sua produção agrícola.
+
+                </p>
+
+                <div class="contact-box">
+
                     <i data-lucide="mail"></i>
-                    <span>contato@agroviva.com.br</span>
+
+                    <span>
+                        contato@agroviva.com.br
+                    </span>
+
                 </div>
-                <div class="info-item">
+
+                <div class="contact-box">
+
                     <i data-lucide="phone"></i>
-                    <span>(11) 99999-8888</span>
+
+                    <span>
+                        (11) 99999-8888
+                    </span>
+
                 </div>
+
             </div>
 
-            <div class="contact-form-container hidden-element">
-                <form id="contactForm" class="contact-form" novalidate>
+            <!-- FORM -->
+
+            <div class="contact-form fade-up">
+
+                <form id="contactForm">
+
                     <div class="form-group">
-                        <label for="name">Nome Completo</label>
-                        <input type="text" id="name" required placeholder="Seu nome">
-                        <span class="error-message">Por favor, insira seu nome.</span>
+
+                        <input
+                            type="text"
+                            placeholder="Seu nome"
+                            required
+                        >
+
                     </div>
+
                     <div class="form-group">
-                        <label for="email">E-mail</label>
-                        <input type="email" id="email" required placeholder="seu@email.com">
-                        <span class="error-message">Por favor, insira um e-mail válido.</span>
+
+                        <input
+                            type="email"
+                            placeholder="Seu e-mail"
+                            required
+                        >
+
                     </div>
+
                     <div class="form-group">
-                        <label for="message">Mensagem</label>
-                        <textarea id="message" rows="5" required placeholder="Como podemos ajudar seu negócio?"></textarea>
-                        <span class="error-message">Por favor, digite sua mensagem.</span>
+
+                        <textarea
+                            rows="5"
+                            placeholder="Sua mensagem"
+                            required
+                        ></textarea>
+
                     </div>
-                    <button type="submit" class="btn btn-secondary">Enviar Mensagem</button>
-                    <div id="formSuccess" class="success-message">Mensagem enviada com sucesso! Entraremos em contato em breve.</div>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+
+                        Enviar Mensagem
+
+                    </button>
+
+                    <div
+                        id="formSuccess"
+                        class="success-message"
+                    >
+
+                        Mensagem enviada com sucesso!
+
+                    </div>
+
                 </form>
+
             </div>
+
         </div>
+
     </section>
 
-    <!-- 8. Rodapé -->
+    <!-- =====================================
+         FOOTER
+    ====================================== -->
+
     <footer class="footer">
-        <div class="container footer-grid">
-            <div class="footer-brand">
-                <a href="#" class="logo">Agro<span>Viva</span></a>
-                <p>&copy; 2026 AgroViva. Todos os direitos reservados. Cultivando um futuro melhor.</p>
+
+        <div class="container footer-content">
+
+            <div>
+
+                <a href="#" class="logo">
+                    Agro<span>Viva</span>
+                </a>
+
+                <p>
+
+                    © 2026 AgroViva.
+                    Agricultura Inteligente.
+
+                </p>
+
             </div>
-            <div class="footer-socials">
-                <a href="#" aria-label="Facebook"><i data-lucide="facebook"></i></a>
-                <a href="#" aria-label="Instagram"><i data-lucide="instagram"></i></a>
-                <a href="#" aria-label="Twitter"><i data-lucide="twitter"></i></a>
+
+            <div class="footer-social">
+
+                <a href="#">
+
+                    <i data-lucide="instagram"></i>
+
+                </a>
+
+                <a href="#">
+
+                    <i data-lucide="facebook"></i>
+
+                </a>
+
+                <a href="#">
+
+                    <i data-lucide="linkedin"></i>
+
+                </a>
+
             </div>
+
         </div>
+
     </footer>
 
-    <!-- Botão Voltar ao Topo -->
-    <button class="back-to-top" id="backToTop" aria-label="Voltar ao topo">
+    <!-- =====================================
+         BOTÃO TOPO
+    ====================================== -->
+
+    <button class="back-top">
+
         <i data-lucide="arrow-up"></i>
+
     </button>
 
-    <!-- Inicialização dos Ícones Lucide -->
-    <script>
-        lucide.createIcons();
-    </script>
-    <!-- Script Externo -->
+    <!-- SCRIPT -->
+
     <script src="script.js"></script>
+
 </body>
+
 </html>
