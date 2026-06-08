@@ -5,349 +5,165 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    /* =====================================================
+    /* ===========================
        1. MENU MOBILE
-    ===================================================== */
-
+    ============================ */
     const mobileBtn = document.querySelector('.btn-mobile');
     const navMenu = document.querySelector('.nav-menu');
-    const navLinks = document.querySelectorAll('.nav-link');
+    const navLinks = document.querySelectorAll('.nav-menu a');
     const navbar = document.querySelector('.navbar');
 
-    if (mobileBtn) {
+    const toggleMenu = () => {
+        navMenu.classList.toggle('active');
+        document.body.classList.toggle('menu-open');
+        const icon = mobileBtn.querySelector('i');
+        icon.setAttribute('data-lucide', navMenu.classList.contains('active') ? 'x' : 'menu');
+        lucide.createIcons();
+    };
 
-        mobileBtn.addEventListener('click', () => {
+    if (mobileBtn) mobileBtn.addEventListener('click', toggleMenu);
+    navLinks.forEach(link => link.addEventListener('click', () => {
+        navMenu.classList.remove('active');
+        document.body.classList.remove('menu-open');
+        mobileBtn.querySelector('i').setAttribute('data-lucide', 'menu');
+        lucide.createIcons();
+    }));
 
-            navMenu.classList.toggle('active');
 
-            document.body.classList.toggle('menu-open');
-
-            const icon = mobileBtn.querySelector('i');
-
-            if (navMenu.classList.contains('active')) {
-                icon.setAttribute('data-lucide', 'x');
-            } else {
-                icon.setAttribute('data-lucide', 'menu');
-            }
-
-            lucide.createIcons();
-        });
-    }
-
-    /* FECHAR MENU AO CLICAR */
-
-    navLinks.forEach(link => {
-
-        link.addEventListener('click', () => {
-
-            navMenu.classList.remove('active');
-
-            document.body.classList.remove('menu-open');
-
-            const icon = mobileBtn.querySelector('i');
-
-            icon.setAttribute('data-lucide', 'menu');
-
-            lucide.createIcons();
-        });
-    });
-
-    /* =====================================================
+    /* ===========================
        2. NAVBAR SCROLL
-    ===================================================== */
+    ============================ */
+    const handleNavbarScroll = () => {
+        navbar.classList.toggle('scrolled', window.scrollY > 80);
+    };
+    window.addEventListener('scroll', handleNavbarScroll);
 
-    window.addEventListener('scroll', () => {
 
-        if (window.scrollY > 80) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-    });
-
-    /* =====================================================
+    /* ===========================
        3. ANIMAÇÃO AO ROLAR
-    ===================================================== */
-
-    const revealElements =
-        document.querySelectorAll('.fade-up');
-
-    const revealObserver =
-        new IntersectionObserver((entries) => {
-
-            entries.forEach(entry => {
-
-                if (entry.isIntersecting) {
-
-                    entry.target.classList.add('show');
-
-                    revealObserver.unobserve(entry.target);
-                }
-            });
-
-        }, {
-            threshold: 0.15
+    ============================ */
+    const fadeUpElements = document.querySelectorAll('.fade-up');
+    const fadeObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('show');
+                observer.unobserve(entry.target);
+            }
         });
+    }, { threshold: 0.15 });
 
-    revealElements.forEach(element => {
-        revealObserver.observe(element);
-    });
+    fadeUpElements.forEach(el => fadeObserver.observe(el));
 
-    /* =====================================================
+
+    /* ===========================
        4. CONTADORES ANIMADOS
-    ===================================================== */
+    ============================ */
+    const counters = document.querySelectorAll('.stat-number');
+    let countersStarted = false;
 
-    const counters =
-        document.querySelectorAll('.stat-number');
-
-    let counterStarted = false;
-
-    function animateCounters() {
-
+    const animateCounters = () => {
         counters.forEach(counter => {
-
-            const target =
-                +counter.dataset.target;
-
+            const target = +counter.dataset.target;
             let current = 0;
-
-            const increment =
-                Math.ceil(target / 100);
-
+            const increment = Math.ceil(target / 100);
             const timer = setInterval(() => {
-
                 current += increment;
-
-                if (current >= target) {
-
-                    counter.innerText = target;
-
-                    clearInterval(timer);
-
-                } else {
-
-                    counter.innerText = current;
-                }
-
+                counter.innerText = current >= target ? target : current;
+                if (current >= target) clearInterval(timer);
             }, 20);
         });
-    }
+    };
 
-    const statsSection =
-        document.querySelector('.stats');
-
+    const statsSection = document.querySelector('.stats');
     if (statsSection) {
-
-        const statsObserver =
-            new IntersectionObserver((entries) => {
-
-                entries.forEach(entry => {
-
-                    if (
-                        entry.isIntersecting &&
-                        !counterStarted
-                    ) {
-
-                        animateCounters();
-
-                        counterStarted = true;
-                    }
-                });
-
-            }, {
-                threshold: 0.4
+        const statsObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !countersStarted) {
+                    animateCounters();
+                    countersStarted = true;
+                    observer.unobserve(statsSection);
+                }
             });
-
+        }, { threshold: 0.4 });
         statsObserver.observe(statsSection);
     }
 
-    /* =====================================================
+
+    /* ===========================
        5. BOTÃO VOLTAR AO TOPO
-    ===================================================== */
+    ============================ */
+    const backTop = document.querySelector('.back-top');
 
-    const backTop =
-        document.querySelector('.back-top');
+    const handleBackTop = () => {
+        if (!backTop) return;
+        const show = window.scrollY > 500;
+        backTop.style.opacity = show ? '1' : '0';
+        backTop.style.visibility = show ? 'visible' : 'hidden';
+        backTop.style.transform = show ? 'translateY(0)' : 'translateY(20px)';
+    };
+    window.addEventListener('scroll', handleBackTop);
+    if (backTop) backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-    window.addEventListener('scroll', () => {
 
-        if (window.scrollY > 500) {
-
-            backTop.style.opacity = '1';
-            backTop.style.visibility = 'visible';
-            backTop.style.transform = 'translateY(0)';
-
-        } else {
-
-            backTop.style.opacity = '0';
-            backTop.style.visibility = 'hidden';
-            backTop.style.transform =
-                'translateY(20px)';
-        }
-    });
-
-    if (backTop) {
-
-        backTop.addEventListener('click', () => {
-
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-    }
-
-    /* =====================================================
+    /* ===========================
        6. LINK ATIVO NO MENU
-    ===================================================== */
-
-    const sections =
-        document.querySelectorAll('section');
-
-    window.addEventListener('scroll', () => {
-
+    ============================ */
+    const sections = document.querySelectorAll('section');
+    const handleActiveLink = () => {
         let current = '';
-
-        sections.forEach(section => {
-
-            const sectionTop =
-                section.offsetTop - 120;
-
-            if (window.scrollY >= sectionTop) {
-
-                current =
-                    section.getAttribute('id');
-            }
+        sections.forEach(sec => {
+            if (window.scrollY >= sec.offsetTop - 120) current = sec.id;
         });
+        navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === `#${current}`));
+    };
+    window.addEventListener('scroll', handleActiveLink);
 
-        navLinks.forEach(link => {
 
-            link.classList.remove('active');
+    /* ===========================
+       7. FORMULÁRIO & VALIDAÇÃO
+    ============================ */
+    const form = document.getElementById('contactForm');
+    const successMsg = document.getElementById('formSuccess');
 
-            if (
-                link.getAttribute('href')
-                === `#${current}`
-            ) {
-
-                link.classList.add('active');
-            }
-        });
-    });
-
-    /* =====================================================
-       7. FORMULÁRIO
-    ===================================================== */
-
-    const form =
-        document.getElementById('contactForm');
-
-    const successMessage =
-        document.getElementById('formSuccess');
+    const validateEmail = email => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
     if (form) {
-
-        form.addEventListener('submit', (e) => {
-
+        form.addEventListener('submit', e => {
             e.preventDefault();
-
             let valid = true;
-
-            const fields =
-                form.querySelectorAll(
-                    'input[required], textarea[required]'
-                );
-
+            const fields = form.querySelectorAll('input[required], textarea[required]');
             fields.forEach(field => {
-
-                const parent =
-                    field.parentElement;
-
-                parent.classList.remove('error');
-
-                if (!field.value.trim()) {
-
-                    parent.classList.add('error');
-
-                    valid = false;
-                }
-
-                if (
-                    field.type === 'email' &&
-                    !validateEmail(field.value)
-                ) {
-
-                    parent.classList.add('error');
-
+                field.parentElement.classList.remove('error');
+                if (!field.value.trim() || (field.type === 'email' && !validateEmail(field.value))) {
+                    field.parentElement.classList.add('error');
                     valid = false;
                 }
             });
-
             if (valid) {
-
-                successMessage.style.display =
-                    'block';
-
+                successMsg.style.display = 'block';
                 form.reset();
-
-                setTimeout(() => {
-
-                    successMessage.style.display =
-                        'none';
-
-                }, 5000);
+                setTimeout(() => { successMsg.style.display = 'none'; }, 5000);
             }
         });
 
-        /* REMOVER ERRO AO DIGITAR */
-
-        form.querySelectorAll(
-            'input, textarea'
-        ).forEach(field => {
-
-            field.addEventListener('input', () => {
-
-                if (field.value.trim()) {
-
-                    field.parentElement
-                        .classList.remove('error');
-                }
-            });
+        form.querySelectorAll('input, textarea').forEach(field => {
+            field.addEventListener('input', () => field.parentElement.classList.remove('error'));
         });
     }
 
-    /* =====================================================
-       8. VALIDAÇÃO EMAIL
-    ===================================================== */
 
-    function validateEmail(email) {
-
-        const regex =
-            /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-        return regex.test(email);
-    }
-
-    /* =====================================================
-       9. PARALLAX SUAVE HERO
-    ===================================================== */
-
-    const hero =
-        document.querySelector('.hero');
-
+    /* ===========================
+       8. PARALLAX HERO
+    ============================ */
+    const hero = document.querySelector('.hero');
     window.addEventListener('scroll', () => {
-
-        const scrollY = window.scrollY;
-
-        if (hero) {
-
-            hero.style.backgroundPositionY =
-                `${scrollY * 0.4}px`;
-        }
+        if (hero) hero.style.backgroundPositionY = `${window.scrollY * 0.4}px`;
     });
 
-    /* =====================================================
-       10. INICIAR ÍCONES LUCIDE
-    ===================================================== */
 
+    /* ===========================
+       9. LUCIDE ICONS
+    ============================ */
     lucide.createIcons();
 
 });
